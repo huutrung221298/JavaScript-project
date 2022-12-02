@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+        <link href="styles.css" rel="stylesheet">
+        <title>Trivia!</title>
+        <script>
+            // TODO: Add code to check answers to questions
+            document.addEventListener('DOMContentLoaded', function listen(){
+
+                let btnElements = document.querySelectorAll('.multiple');
+                let submitBtnElement = document.querySelector("#confirm-btn");
+                let multipleIsAnswered = false;
+                let freeIsAnswered = false;
+
+                for(let btnElement of btnElements){
+                    btnElement.addEventListener('click', event => multipleChoice(event))
+                };
+
+                submitBtnElement.addEventListener('click', freeResponse);
+
+                function multipleChoice(event){
+                    if (multipleIsAnswered == 'true'){
+                        return;
+                    }
+
+                    const currentBtnElement = event.target;
+                    let newH4Element = document.createElement('h4');
+
+                    if(currentBtnElement.classList.contains('correct')){
+                        currentBtnElement.style.background = 'green';
+                        newH4Element.textContent = 'Correct!';
+                        multipleIsAnswered = 'true';
+                    }
+                    else{
+                        currentBtnElement.style.background = 'red';
+                        newH4Element.textContent = "Incorrect!";
+                        multipleIsAnswered = 'true';
+                    }
+                    let divElement = currentBtnElement.parentElement;
+                    divElement.appendChild(newH4Element);
+                }
+
+                function freeResponse(){
+                    if (freeIsAnswered == 'true'){
+                        return;
+                    }
+
+                    let answerInputElement = document.querySelector('#free-response');
+                    let answer = answerInputElement.value;
+                    let newH4Element = document.createElement('h4');
+                    if (answer == 'yes'){
+                        answerInputElement.style.background = 'green';
+                        newH4Element.textContent = 'Correct!';
+                        freeIsAnswered = 'true';
+                    }
+                    else if (answer == 'no'){
+                        answerInputElement.style.background = 'red';
+                        newH4Element.textContent = 'Incorrect!';
+                        freeIsAnswered = 'true';
+                    }
+
+                    let divElement = answerInputElement.parentElement;
+                    divElement.appendChild(newH4Element);
+                }
+            })
+        </script>
+    </head>
+    <body>
+        <div class="header">
+            <h1>Trivia!</h1>
+        </div>
+
+        <div class="container">
+            <div class="section">
+                <h2>Part 1: Multiple Choice </h2>
+                <hr>
+                <h3>Who is the father of a child</h3>
+                <button class="multiple incorrect">Random person 1</button>
+                <button class="multiple correct">Random person 2</button>
+                <button class="multiple incorrect">Random person 3</button>
+                <button class="multiple incorrect">Random person 4</button>
+                <!-- TODO: Add multiple choice question here -->
+            </div>
+
+            <div class="section">
+                <h2>Part 2: Free Response</h2>
+                <hr>
+                <!-- TODO: Add free response question here -->
+                <h3>Is it true that this is your brother (yes/no question)?</h3>
+                <input id="free-response" type="text" placeholder="Type your answer...">
+                <button id="confirm-btn">Submit answer</button>
+            </div>
+        </div>
+    </body>
+</html>
